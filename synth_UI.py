@@ -1,10 +1,9 @@
 
 import streamlit as st
 import openai
-import os
+
 # Initialize OpenAI client
-openai.api_key = 'YOUR API KEY'
-os.environment["openai.api_key"]
+openai.api_key = st.secrets["openai"]["api_key"]
 
 
 #Getting Response from LLM

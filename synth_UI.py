@@ -1,9 +1,11 @@
 
 import streamlit as st
 import openai
-
+import os
 # Initialize OpenAI client
 openai.api_key = 'YOUR API KEY'
+os.environment["openai.api_key"]
+
 
 #Getting Response from LLM
 def get_llm_response(chat_context, user_examples, user_query):

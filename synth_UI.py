@@ -30,7 +30,7 @@ Please initiate a friendly conversation flow to gather the necessary details, fo
 
 7. Once all details are provided, summarize the overall request including a set of example entries to confirm with the user.
 
-8. If the user approves the summary and examples, return a json that includes all the information using below fields
+8. If the user approves the summary and examples, return only a json that includes all the information using below fields as a final messsage. Do not write any text other than the json in the final message.
 "entry count" : numeric
 "language": string
 "type" : classification/fine-tuning

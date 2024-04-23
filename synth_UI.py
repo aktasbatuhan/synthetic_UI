@@ -1,53 +1,52 @@
-
 import streamlit as st
-import openai
+import anthropic
 from db import MongoEngine
-# Initialize OpenAI client
-openai.api_key = st.secrets["openai"]["api_key"]
 
+# Assuming claude library is used to interface with Claude API and initialized similarly to OpenAI's library
+client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["api_key"])
 mongo_engine = MongoEngine()
 
-#Getting Response from LLM
+# Getting Response from Anthropic's LLM
 def get_llm_response(chat_context, user_examples, user_query):
-    """Get a response from the LLM using the last 5 chat messages and knowledge_list."""
-    messages = [
-        {"role": "system", "content": f""" 
-
-You are an AI assistant helping users order custom synthetic datasets. 
-Focus only on collecting information from users for synthetic data generation, and if you receive a prompt unrelated to synthetic data generation just reply with answers like "I am sorry but I can only help you with synthetic data generation."
-Please initiate a friendly conversation flow to gather the necessary details, following these steps:
-
-1. Ask the user about the intended purpose or use case for the dataset they need - whether it's for classification or fine-tuning language models
-
-2. If the purpose is classification, request the user to describe the classification task and provide any specific label sets they need.
-
-3. If the purpose is fine-tuning in purpose of translation, instruction following, planning, tool usage, or reasoning - ask the user to describe the details of the task they need the dataset for.
-
-4. Ask if the user would prefer aligning the dataset content to any particular human preferences or values by prompting with examples regarding the context of the request.
-
-5. Request the user to specify the desired language for the dataset.
-
-6. Inquire about the preferred entry count or size of the dataset.
-
-7. Once all details are provided, summarize the overall request including a set of example entries to confirm with the user.
-
-8. If the user approves the summary and examples, return only a json that includes all the information using below fields as a final messsage. Do not write any text other than the json in the final message.
-"entry count" : numeric
-"language": string
-"type" : classification/fine-tuning
-"purpose" : string
-"labels" : string
-
-Get confirmation from the user by providing example entries within the 3rd, 4th, and 5th steps. 
-         
-         """},
-        {"role": "user", "content": f"Chat history: {chat_context}\nUser query: {user_query}\nExamples: {user_examples}"}
+    """Get a response from the LLM using the chat history and knowledge list."""
+    system_prompt = "[system prompt here]"
+    user_messages = [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": f"Chat history: {chat_context}\nUser query: {user_query}\nExamples: {user_examples}"
+                }
+            ]
+        }
     ]
-    response = openai.ChatCompletion.create(
-        model="gpt-4-turbo-2024-04-09",  # Replace with your model
-        messages=messages
-    )
-    return response.choices[0].message['content'] if response else "No response from LLM."
+
+    try:
+        # Send the message to the Anthropic API and capture the response
+        message = client.messages.create(
+            model="claude-3-opus-20240229",
+            max_tokens=1000,
+            temperature=0,
+            messages=user_messages,
+            system=system_prompt
+        )
+
+        # Extract text from the response if available
+        if message and hasattr(message, 'content'):
+            response_texts = [getattr(block, 'text', 'No text found') for block in message.content]
+            return ' '.join(response_texts)
+        elif hasattr(message, 'error'):
+            error_message = getattr(message.error, 'message', 'Unknown error')
+            return f"Error: {error_message}"
+        else:
+            return "No response from Claude."
+
+    except Exception as e:
+        # Log the exception for debugging
+        print(f"Failed to get a response: {str(e)}")
+        return "Failed to process your request."
+
 
 
 # Streamlit App

@@ -1,4 +1,4 @@
-from src.db.mongodb import connect2db, getDb
+from db.mongodb import connect2db, getDb
 
 
 class MongoClient:

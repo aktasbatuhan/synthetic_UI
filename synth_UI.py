@@ -4,6 +4,7 @@ from db import MongoEngine
 
 # Assuming claude library is used to interface with Claude API and initialized similarly to OpenAI's library
 client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["api_key"])
+client = anthropic.Anthropic(api_key="st.secrets["api_key"]")
 mongo_engine = MongoEngine()
 
 # Getting Response from Anthropic's LLM

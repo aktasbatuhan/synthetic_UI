@@ -1,10 +1,11 @@
 
 import streamlit as st
 import openai
-
+from db import MongoEngine
 # Initialize OpenAI client
 openai.api_key = st.secrets["openai"]["api_key"]
 
+mongo_engine = MongoEngine()
 
 #Getting Response from LLM
 def get_llm_response(chat_context, user_examples, user_query):
@@ -79,6 +80,7 @@ if submit_button and user_query and st.session_state.submit_flag:
     st.session_state.chat_messages.append(f"User: {user_query}")
     # Get response from LLM
     response = get_llm_response(st.session_state.chat_messages[-10:], st.session_state.user_examples, user_query)
+    mongo_engine.save_form(response)
     st.session_state.chat_messages.append(f"AI: {response}")
     # Reset flag to prevent duplicate messages
     st.session_state.submit_flag = False

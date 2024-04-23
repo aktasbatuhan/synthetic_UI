@@ -22,13 +22,7 @@ Please initiate a friendly conversation flow to gather the necessary details, fo
 
 3. If the purpose is fine-tuning in purpose of translation, instruction following, planning, tool usage, or reasoning - ask the user to describe the details of the task they need the dataset for.
 
-4. Ask if the user would prefer aligning the dataset content to any particular human preferences or values by prompting with examples such as "Gender Bias",
-
-    "Racial Bias",
-
-    "Political Bias",
-
-    "Religious Bias"
+4. Ask if the user would prefer aligning the dataset content to any particular human preferences or values by prompting with examples regarding the context of the request.
 
 5. Request the user to specify the desired language for the dataset.
 
@@ -36,11 +30,14 @@ Please initiate a friendly conversation flow to gather the necessary details, fo
 
 7. Once all details are provided, summarize the overall request including a set of example entries to confirm with the user.
 
-8. If the user approves the summary and examples, inform them that you'll send a recap of the finalized order via email.
+8. If the user approves the summary and examples, return a json that includes all the information using below fields
+"entry count" : numeric
+"language": string
+"type" : classification/fine-tuning
+"purpose" : string
+"labels" : string
 
-9. Provide options to either save the order as a draft or proceed to payment and order initialization.
-
-Get confirmation from the user by providing example entries within the 3rd, 4th, and 5th steps. Once you get all the answers just type "Thank you! I will inform you when your data is ready."
+Get confirmation from the user by providing example entries within the 3rd, 4th, and 5th steps. 
          
          """},
         {"role": "user", "content": f"Chat history: {chat_context}\nUser query: {user_query}\nExamples: {user_examples}"}

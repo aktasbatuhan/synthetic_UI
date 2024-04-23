@@ -66,7 +66,6 @@ if 'submit_flag' not in st.session_state:
     st.session_state.submit_flag = False
 
 with col1:
-    st.subheader("Hello! I'm excited to help you create a custom synthetic dataset. Please let me know when you want to start.")
     for message in st.session_state.chat_messages:
         st.write(message)
 

@@ -34,7 +34,7 @@ If the user does not prompt you in another language, always speak in English, an
 
 Once all details are provided, summarize all your information, and ask for an overall confirmation. Keep adjusting your summary if the user does not approve all the information you provide, and try to display some examples to be more clear.
 
-Ask the user to reply as "Proceed the Request" at the end and output task details as a JSON with fields [purpose, task_type, language, alignment_preferences:list, dataset_size]. Only output the JSON including all details, nothing else."""
+Ask the user to reply as "Proceed the Request" at the end and output task details as a JSON with fields [purpose, task_type, dataset_format, language, alignment_preferences:list, dataset_size]. Only output the JSON including all details, nothing else."""
 
 
 # Getting Response from Anthropic's LLM

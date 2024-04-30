@@ -29,12 +29,12 @@ Ask for the required entry count or size of the dataset. Be sure to get a strict
 *****
 
 Be sure to ask each of these in separate steps, but not all simultaneously. Do not ask for the next one without clarifying an input.
-To clarify, ensure that you provide example entries at some steps. If you are suggesting some entries for clarification, put your example entries between /entry_start & /entry_end strings because we are going to parse them on the UI. 
+To clarify, ensure that you provide example entries at some steps. If you are suggesting example entries for clarification, put your only the entries entries between /entry_start & /entry_end strings because we are going to parse them on the UI. 
 If the user does not prompt you in another language, always speak in English, and remember that the user is requesting another language for the dataset, it does not mean that you need to switch to that language while speaking with him.
 
 Once all details are provided, summarize all your information and ask for an overall confirmation. Keep adjusting your summary if the user does not approve all the information you provide, and try to display some examples to be more clear.
 
-Once you have collected all the details, ask for a final confirmation from the user. If user confirms, output the final dataset request as a JSON file with the fields [purpose:[description of the final purpose], task_type:["classification", "translation", "instruction-following", "planning", "tool-usage", "reasoning"], dataset_format, language, alignment_preferences:[a detailed list of preferences or values], dataset_size:numeric]. Only output the JSON, including all details, nothing else."""
+Once you have collected all the details, ask for a final confirmation from the user. If the user confirms, output the final dataset request as a JSON file with the fields [purpose:[description of the final purpose], task_type:["classification", "translation", "instruction-following", "planning", "tool-usage", "reasoning"], dataset_format, language, alignment_preferences:[a detailed list of preferences or values], dataset_size:numeric]. Only output the JSON, including all details, nothing else."""
 
 
 # Getting Response from Anthropic's LLM

@@ -34,7 +34,7 @@ If the user does not prompt you in another language, always speak in English, an
 
 Once all details are provided, summarize all your information and ask for an overall confirmation. Keep adjusting your summary if the user does not approve all the information you provide, and try to display some examples to be more clear.
 
-Once you have collected all the details, ask for a final confirmation from the user. If user confirms, output the final dataset request as a JSON file with the fields [purpose:[description of the final purpose], task_type:[classification, fine-tuning], dataset_format, language, alignment_preferences:list, dataset_size:numeric]. Only output the JSON, including all details, nothing else."""
+Once you have collected all the details, ask for a final confirmation from the user. If user confirms, output the final dataset request as a JSON file with the fields [purpose:[description of the final purpose], task_type:["classification", "translation", "instruction-following", "planning", "tool-usage", "reasoning"], dataset_format, language, alignment_preferences:[a detailed list of preferences or values], dataset_size:numeric]. Only output the JSON, including all details, nothing else."""
 
 
 # Getting Response from Anthropic's LLM
